@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import org.junit.Test;
 
 import com.github.jmoalves.qifParser.type.QifAccount;
+import com.github.jmoalves.qifParser.type.QifBankTransaction;
 import com.github.jmoalves.qifParser.type.QifCategory;
 
 public class QifParserTest {
@@ -26,12 +27,18 @@ public class QifParserTest {
 	private static class QifCallbackTest implements QifCallback {
 		@Override
 		public void qifAccount(QifAccount acc) {
-			log.info("QifAccount: " + acc);
+//			log.info("QifAccount: " + acc);
 		}
 		
 		@Override
 		public void qifCategory(QifCategory cat) {
-			log.info("QifCategory: " + cat);
+//			log.info("QifCategory: " + cat);
 		}
+
+		@Override
+		public void qifBankTransaction(QifBankTransaction transaction) {
+			log.info("QifBankTransaction: " + transaction);
+		}
+
 	}
 }

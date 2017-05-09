@@ -93,8 +93,8 @@ public class QifTypeChain {
 	}
 
 	private void handleCategory(List<String> token, QifCallback callback) {
-		QifCategory cat = QifCategory.create(token);
 //		LOG.info("Category: " + token);
+		QifCategory cat = QifCategory.create(token);
 		callback.qifCategory(cat);
 	}
 
@@ -104,6 +104,8 @@ public class QifTypeChain {
 
 	private void handleBank(List<String> token, QifCallback callback) {
 //		LOG.info("Bank: " + token + " => " + lastAccount);
+		QifBankTransaction bt = QifBankTransaction.create(token, lastAccount);
+		callback.qifBankTransaction(bt);
 	}
 
 	private void handleCreditCard(List<String> token, QifCallback callback) {

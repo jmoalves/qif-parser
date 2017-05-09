@@ -17,6 +17,10 @@ public class QifAccount {
 		return acc;
 	}
 	
+	public static QifAccount get(String account) {
+		return accounts.get(account);
+	}
+
 	private String name;
 	private String type;
 	private Double limit;
@@ -27,6 +31,12 @@ public class QifAccount {
 			String content = item.substring(1);
 			
 			switch (type) {
+			case "!":
+				break;
+
+			case "^":
+				break;
+				
 			case "N":
 				this.name = content;
 				break;
@@ -38,6 +48,9 @@ public class QifAccount {
 			case "L": // CreditCard only
 				this.limit = Double.parseDouble(content);
 				break;
+				
+			default:
+				throw new IllegalArgumentException("Unhandled attribute " + type);
 			}
 		}
 	}

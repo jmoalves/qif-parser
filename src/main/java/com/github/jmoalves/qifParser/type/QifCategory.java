@@ -1,12 +1,25 @@
 package com.github.jmoalves.qifParser.type;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class QifCategory {
-
+	private static Map<String, QifCategory> categories = new HashMap<>();
+	
 	public static QifCategory create(List<String> token) {
-		return new QifCategory(token);
+		QifCategory cat = new QifCategory(token);
+		if (categories.containsKey(cat.getName())) {
+			return categories.get(cat.getName());
+		}
+		
+		categories.put(cat.getName(), cat);
+		return cat;
+	}
+
+	public static QifCategory get(String category) {
+		return categories.get(category);
 	}
 
 	private String name;
@@ -22,6 +35,12 @@ public class QifCategory {
 			String content = item.substring(1);
 			
 			switch (type) {
+			case "!":
+				break;
+
+			case "^":
+				break;
+				
 			case "N":
 				this.name = content;
 				break;
@@ -45,6 +64,9 @@ public class QifCategory {
 			case "I":
 				this.income = true;
 				break;
+				
+			default:
+				throw new IllegalArgumentException("Unhandled attribute " + type);
 			}
 		}
 		
